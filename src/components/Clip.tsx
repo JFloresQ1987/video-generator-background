@@ -2,7 +2,7 @@ import React from 'react';
 import {
   interpolate,
   OffthreadVideo,
-  spring,
+  spring,  
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';

@@ -12,4 +12,7 @@ export const config = {
   m_title: "Sergio! te invita",
   m_text_1: "Este sábado",
   m_text_2: "05 de febrero",
+
+  message_first: "TIENES UNA INVITACIÓN",
+  // message_first: "qwe qwe qwe w",
 };

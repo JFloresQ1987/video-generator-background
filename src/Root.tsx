@@ -26,9 +26,9 @@ export const RemotionRoot: React.FC = () => {
           // song: config.song,
           // artist: config.artist,
           // movie: config.movie,
-          m_title: config.m_title,
-          m_text_1: config.m_text_1,
-          m_text_2: config.m_text_2,
+          message_first: config.message_first,
+          // m_text_1: config.m_text_1,
+          // m_text_2: config.m_text_2,
         }}
       />
     </>
