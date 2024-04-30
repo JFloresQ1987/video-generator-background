@@ -1,14 +1,17 @@
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition } from "@remotion/renderer";
+import { supabaseAdmin } from "./src/libs/supabase";
 import express from "express";
 import path from "path";
-import { supabaseAdmin } from "./src/libs/supabase";
+import dotenv from 'dotenv';
+// import { Order } from "./src/models/order.interface";
+
+dotenv.config();
 
 const app = express();
 const video_publico = express.static(__dirname + '/public');
-const port = 8000;
 
-const newProduction = async (payload: any) => {
+const newOrder = async (payload: any) => {
   console.log('video request to render!');
   const data = payload.new;
   await renderVideo(data);
@@ -74,18 +77,17 @@ const updateProduction = async (_id: any, _path: any, _album: any) => {
   if (data) console.log(data)
 };
 
-app.listen(port);
+app.listen(process.env.PORT);
 app.use(video_publico);
 
 console.log(
   [
-    `The server has started on http://localhost:${port}!`,
-    'You can render a video by passing props as URL parameters.',
+    `Server running on port  ${process.env.PORT}!`,
     '',
   ].join('\n')
 );
 
 supabaseAdmin
   .channel('todos')
-  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'production' }, newProduction)
+  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'production' }, newOrder)
   .subscribe()

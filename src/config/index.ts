@@ -15,4 +15,6 @@ export const config = {
 
   message_first: "TIENES UNA INVITACIÓN",
   // message_first: "qwe qwe qwe w",
+
+  component: "happy-birthay/bob-esponja/Production",
 };

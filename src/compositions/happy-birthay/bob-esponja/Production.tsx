@@ -25,7 +25,8 @@ font
   })
   .catch((err) => console.log("Error loading font", err));
 
-export const Production: React.FC<{
+  // export const ProductionBobEsponja: React.FC<{
+  const Production: React.FC<{
   // secondaryColor: string;
   // audio: string;
   // album: string;
@@ -33,7 +34,7 @@ export const Production: React.FC<{
   // m_title: string;
   message_first: string;
   // m_text_2: string;
-}> = ({ /*secondaryColor, album, */message_first/*, m_text_1, m_text_2*/ }) => {
+}> = ({ /*secondaryColor, album, */ message_first /*, m_text_1, m_text_2*/ }) => {
 
   return (
     <AbsoluteFill>
@@ -56,3 +57,5 @@ export const Production: React.FC<{
     </AbsoluteFill>
   );
 };
+
+export default Production;
