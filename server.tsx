@@ -1,10 +1,10 @@
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition } from "@remotion/renderer";
 import { supabaseAdmin } from "./src/libs/supabase";
+import { getCompositionPath } from "./src/enums";
 import express from "express";
 import path from "path";
 import dotenv from 'dotenv';
-// import { Order } from "./src/models/order.interface";
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ const app = express();
 const video_publico = express.static(__dirname + '/public');
 
 const newOrder = async (payload: any) => {
-  console.log('video request to render!');
+  console.log('1. video request to render! ...');
   const data = payload.new;
   await renderVideo(data);
 }
@@ -24,8 +24,9 @@ const renderVideo = async (_inputProps: any) => {
     const compositionId = "Production";
     const videoName = `${(new Date()).getTime()}`;
     const bundleLocation = await bundle({
-      entryPoint: path.resolve("./src/index.ts"),
-      webpackOverride: (config) => config,
+      // entryPoint: path.resolve("./src/index.ts"),
+      entryPoint: path.resolve(getCompositionPath(_inputProps?.product_composition)),
+      webpackOverride: (config) => config,      
     });
     const { data, error } = await supabaseAdmin
       .storage
@@ -44,7 +45,7 @@ const renderVideo = async (_inputProps: any) => {
         inputProps,
       });
 
-      console.log('rendering video!');
+      console.log('2. rendering video! ...');
       await renderMedia({
         composition,
         serveUrl: bundleLocation,
@@ -55,7 +56,7 @@ const renderVideo = async (_inputProps: any) => {
 
       const _path = `http:/localhost:8000/videos/${videoName}.mp4`;
       updateProduction(_inputProps.id, _path, inputProps.album);
-      console.log('video rendered!');
+      console.log('3. video rendered!');
     }
   } catch (err) {
     console.error(err);

@@ -2,7 +2,7 @@ import { Composition } from 'remotion';
 // import { Production } from './compositions/happy-birthay/bob-esponja/ProductionBobEsponja';
 import { config } from "./config";
 // import { Production } from './compositions/Production';
-import { useCallback } from 'react';
+// import { useCallback } from 'react';
 // import { Production } from './components/Production';
 // import audio from "./assets/audio/audio.mp3";
 // import album from "./assets/images/foto1.jpg";
@@ -19,7 +19,6 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="Production"
         // component={Production}
-        // lazyComponent={lazyComponent}
         lazyComponent={() => import(`./compositions/${config.component}`)}
         durationInFrames={config.durationInFrames}
         fps={config.fps}
