@@ -19,5 +19,5 @@ export const config = {
   second_message: "qwe",
   thrid_message: "asd",  
 
-  component: "happy-birthay/bob-esponja/Production",
+  component: "happy-birthay/jungle/Production",
 };

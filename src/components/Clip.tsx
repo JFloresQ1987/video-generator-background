@@ -2,13 +2,14 @@ import React from 'react';
 import {
   interpolate,
   OffthreadVideo,
-  spring,  
+  spring,
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
-import clip from '../assets/happy-birthay/bob-esponja/video/clip.mp4';
+// import clip from '../assets/happy-birthay/bob-esponja/video/clip.mp4';
 
-export const Clip: React.FC = () => {
+//const MessageFirst: React.FC<{ message: string }> = ({ message }) => {
+export const Clip: React.FC<{ source: any }> = ({ source }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
   const opacity = interpolate(
@@ -35,7 +36,7 @@ export const Clip: React.FC = () => {
       }}
     >
       <OffthreadVideo
-        src={clip}
+        src={source}
       // style={{width: '90%', opacity, transform: `scale(${scale})`}}
       />
     </div>

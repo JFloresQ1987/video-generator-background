@@ -21,9 +21,9 @@ const newOrder = async (payload: any) => {
 const renderVideo = async (_inputProps: any) => {
 
   try {
-
-    const inputProps = _inputProps;
-    const images = inputProps?.images;
+    
+    const messages = _inputProps?.messages;
+    const images = _inputProps?.images;
     const expiresIn = 3000;
 
     if (images) {
@@ -72,46 +72,21 @@ const renderVideo = async (_inputProps: any) => {
 
         if (error) console.error(error);
         if (data) images.fifth_image_url = data?.signedUrl;
-      }
-
-      inputProps.images = images;
+      }      
     }
-
-    // console.log(inputProps);
-
-    // const { data, error } = await supabaseAdmin
-    //   .storage
-    //   .from('images')
-    //   .createSignedUrl(_inputProps.image, 3000)
-
-    // if (error) console.error(error);
-    // if (data) {
-
-    //TODO: inputProps?.product_composition validar null
 
     const videoName = `${(new Date()).getTime()}`;
     const bundleLocation = await bundle({
       // entryPoint: path.resolve("./src/index.ts"),
-      entryPoint: path.resolve(getCompositionPath(inputProps?.product_composition)),
+      entryPoint: path.resolve(getCompositionPath(_inputProps?.product_composition)),
       webpackOverride: (config) => config,
     });
-    // const inputProps = _inputProps;
 
-    //TODO: validar imagenes para video
-    // inputProps.album = data?.signedUrl;
-
-    const messages22 = inputProps.messages
-    const images22 = inputProps.images
-    // const inputProps22 = { ...messages22, images22 }
-    const inputProps22 = Object.assign(messages22, images22);
-
-    // console.log(inputProps22)
-
+    const inputProps = Object.assign(messages, images);
     const composition = await selectComposition({
       serveUrl: bundleLocation,
-      id: "Production",
-      // inputProps: inputProps.messages,
-      inputProps: inputProps22,
+      id: "Production",      
+      inputProps,
     });
 
     console.log(`2. rendering video! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
@@ -120,33 +95,33 @@ const renderVideo = async (_inputProps: any) => {
       serveUrl: bundleLocation,
       codec: "h264",
       outputLocation: `public/videos/${videoName}.mp4`,
-      inputProps,
+      // inputProps,
     });
 
-    //TODO: cambiar localhost
-    // const _path = `http:/localhost:${process.env.PORT}/videos/${videoName}.mp4`;
-    // updateProduction(_inputProps.id, _path, inputProps.album);
     console.log(`3. video rendered! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
-    // }
+    //TODO: cambiar localhost
+    const _url = `http:/localhost:${process.env.PORT}/videos/${videoName}.mp4`;
+    updateProduction(_inputProps.id, _url, images);
+
   } catch (err) {
     console.error(err);
   }
 };
 
-// const updateProduction = async (_id: string, _path: string, _album: string) => {
+const updateProduction = async (_id: string, _url: string, _images: string) => {
 
-//   const { data, error } = await supabaseAdmin
-//     .from('orders')
-//     .upsert({
-//       id: _id,
-//       state: 1,
-//       path: _path,
-//       album: _album
-//     })
+  const { data, error } = await supabaseAdmin
+    .from('orders')
+    .upsert({
+      id: _id,
+      order_state: 'produced',
+      images: _images,
+      video_rendered_url: _url,
+    })
 
-//   if (error) console.log(error)
-//   if (data) console.log(data)
-// };
+  if (error) console.log(error)
+  if (data) console.log(`4. video order update! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+};
 
 app.listen(process.env.PORT);
 app.use(video_publico);
@@ -160,5 +135,5 @@ console.log(
 
 supabaseAdmin
   .channel('todos')
-  .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, newOrder)
+  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, newOrder)
   .subscribe()

@@ -9,10 +9,10 @@ import React from 'react';
 import { Clip } from '../../../components/Clip';
 // import Message1 from './Message1';
 import MessageFirst from './MessageFirst';
+import clip from '../../../assets/happy-birthay/bob-esponja/video/clip.mp4';
 
 const waitForFont = delayRender();
-const font = new FontFace(
-  // `BobEsponja`,
+const font = new FontFace(  
   'BobEsponja',
   `url('${staticFile("/fonts/bob-esponja.ttf")}') format('truetype')`,
 );
@@ -25,8 +25,8 @@ font
   })
   .catch((err) => console.log("Error loading font", err));
 
-  // export const ProductionBobEsponja: React.FC<{
-  const Production: React.FC<{
+// export const ProductionBobEsponja: React.FC<{
+const Production: React.FC<{
   // secondaryColor: string;
   // audio: string;
   // album: string;
@@ -38,7 +38,7 @@ font
 
   return (
     <AbsoluteFill>
-      <Clip />
+      <Clip source={clip} />
       <Sequence from={0} durationInFrames={141}>
         <MessageFirst message={first_message} />
       </Sequence>
