@@ -14,7 +14,7 @@ export const RemotionRoot: React.FC = () => {
         width={720}
         height={1428}
         defaultProps={{
-          message_first: config.message_first,
+          first_message: config.first_message,
         }}
       />
     </>

@@ -32,15 +32,15 @@ font
   // album: string;
   // movie: string;
   // m_title: string;
-  message_first: string;
+  first_message: string;
   // m_text_2: string;
-}> = ({ /*secondaryColor, album, */ message_first /*, m_text_1, m_text_2*/ }) => {
+}> = ({ /*secondaryColor, album, */ first_message /*, m_text_1, m_text_2*/ }) => {
 
   return (
     <AbsoluteFill>
       <Clip />
       <Sequence from={0} durationInFrames={141}>
-        <MessageFirst message={message_first} />
+        <MessageFirst message={first_message} />
       </Sequence>
       {/* <Sequence from={135} durationInFrames={105}>
         <Message1 m_title={m_title} m_text_1={"Vamos a vivir una"} m_text_2={"fiesta increíble!"} />

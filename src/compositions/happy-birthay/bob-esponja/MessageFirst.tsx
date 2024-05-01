@@ -39,11 +39,12 @@ const MessageFirst: React.FC<{ message: string }> = ({ message }) => {
 
   const container: React.CSSProperties = useMemo(() => {
     return {
-      position: 'absolute',
+      position: 'relative',
       // backgroundColor: 'yellow',
       // borderRadius: 25,
       // right: 90,
       top: 70,
+      margin: '0 auto',
       scale: String(scale),
       translate: `0 ${outY}px`,
       rotate: `${rotate}rad`,
