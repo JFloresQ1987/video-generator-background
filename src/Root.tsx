@@ -27,7 +27,8 @@ export const RemotionRoot: React.FC = () => {
         // width={640}
         // height={320}
         width={720}
-        height={1428}
+        // height={1428}
+        height={1280}
         defaultProps={{
           // primaryColor: config.primaryColor,
           // secondaryColor: config.secondaryColor,

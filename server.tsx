@@ -12,7 +12,30 @@ dotenv.config();
 const app = express();
 const video_publico = express.static(__dirname + '/public');
 
+// const newOrder2 = async () => {
+
+//   // console.log('entro a auth anonimo')
+//   // const { data, error } = await supabaseAdmin.auth.signInAnonymously();
+
+//   // if(data) console.log(data)
+//   // if(error) console.log(error)
+
+//   const { data, error } = await supabaseAdmin
+//     .from('orders')
+//     .update({
+//       order_state: 'producedXXX'
+//     })
+//     .eq('id', 1)
+
+//   if (data) console.log(data)
+//   if (error) console.log(error)
+// }
+
 const newOrder = async (payload: any) => {
+
+  // newOrder2()
+
+  //TODO: validar el usuario quien creo la inserción
   console.log(`1. video request to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
   const data = payload.new;
   await renderVideo(data);
@@ -20,8 +43,10 @@ const newOrder = async (payload: any) => {
 
 const renderVideo = async (_inputProps: any) => {
 
+  // return;
+
   try {
-    
+
     const messages = _inputProps?.messages;
     const images = _inputProps?.images;
     const expiresIn = 3000;
@@ -72,7 +97,7 @@ const renderVideo = async (_inputProps: any) => {
 
         if (error) console.error(error);
         if (data) images.fifth_image_url = data?.signedUrl;
-      }      
+      }
     }
 
     const videoName = `${(new Date()).getTime()}`;
@@ -85,7 +110,7 @@ const renderVideo = async (_inputProps: any) => {
     const inputProps = Object.assign(messages, images);
     const composition = await selectComposition({
       serveUrl: bundleLocation,
-      id: "Production",      
+      id: "Production",
       inputProps,
     });
 
@@ -101,26 +126,38 @@ const renderVideo = async (_inputProps: any) => {
     console.log(`3. video rendered! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
     //TODO: cambiar localhost
     const _url = `http:/localhost:${process.env.PORT}/videos/${videoName}.mp4`;
-    updateProduction(_inputProps.id, _url, images);
+    updateProduction(_inputProps.id, images, _url);
 
   } catch (err) {
     console.error(err);
   }
 };
 
-const updateProduction = async (_id: string, _url: string, _images: string) => {
+const updateProduction = async (_id: string, _images: string, _url: string) => {
 
-  const { data, error } = await supabaseAdmin
+  //status: 204
+  const { error } = await supabaseAdmin
     .from('orders')
-    .upsert({
-      id: _id,
+    .update({
       order_state: 'produced',
       images: _images,
       video_rendered_url: _url,
     })
+    .eq('id', _id)
 
-  if (error) console.log(error)
-  if (data) console.log(`4. video order update! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+  // const { data, error } = await supabaseAdmin
+  //   .from('orders')
+  //   .upsert({
+  //     id: _id,
+  //     order_state: 'produced',
+  //     images: _images,
+  //     video_rendered_url: _url,
+  //   })
+  
+  console.log(`4. video order update! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+  // console.log(data)
+
+  if (error) console.log(error)  
 };
 
 app.listen(process.env.PORT);

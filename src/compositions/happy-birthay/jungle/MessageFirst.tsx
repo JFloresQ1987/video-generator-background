@@ -43,7 +43,7 @@ const MessageFirst: React.FC<{ message: string }> = ({ message }) => {
       // backgroundColor: 'yellow',
       // borderRadius: 25,
       // right: 90,
-      top: 340,
+      top: 270,
       margin: '0 auto',
       scale: String(scale),
       translate: `0 ${outY}px`,
