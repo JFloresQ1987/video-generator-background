@@ -9,6 +9,7 @@ import React from 'react';
 import { Clip } from '../../../components/Clip';
 import MessageFirst from './MessageFirst';
 import clip from '../../../assets/happy-birthay/jungle/video/clip.mp4';
+import Watermark from '../../../components/Watermark';
 
 const waitForFont = delayRender();
 const font = new FontFace(
@@ -30,9 +31,12 @@ const Production: React.FC<{
 
   return (
     <AbsoluteFill>
-      <Clip source={clip} />
+      <Clip source={clip} />            
       <Sequence from={0} durationInFrames={155}>
         <MessageFirst message={first_message} />
+      </Sequence>
+      <Sequence from={0} durationInFrames={990}>
+        <Watermark/>
       </Sequence>
     </AbsoluteFill>
   );

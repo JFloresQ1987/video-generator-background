@@ -1,7 +1,7 @@
 const Compositions = [
-  { id: 'BobEsponja', path: './src/compositions/happy-birthay/bob-esponja/index.ts' },
-  { id: 'PlimPlim', path: './src/compositions/happy-birthay/plim-plim/index.ts' },
-  { id: 'Jungle', path: './src/compositions/happy-birthay/jungle/index.ts' },
+  { id: 'BobEsponja1', path: './src/compositions/happy-birthay/bob-esponja/index.ts' },
+  { id: 'PlimPlim1', path: './src/compositions/happy-birthay/plim-plim/index.ts' },
+  { id: 'Jungle1', path: './src/compositions/happy-birthay/jungle/index.ts' },
 ];
 
 export const getCompositionPath = (id: string) => {

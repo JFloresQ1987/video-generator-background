@@ -31,14 +31,30 @@ const video_publico = express.static(__dirname + '/public');
 //   if (error) console.log(error)
 // }
 
-const newOrder = async (payload: any) => {
+const handleChanges = async (payload: any) => {
 
-  // newOrder2()
+  const data = payload.new;
+
+  if (payload.eventType == 'INSERT')
+    newOrder(data);
+  else if (payload.eventType == 'UPDATE')
+    editOrder(data);
+}
+
+const newOrder = async (data: any) => {
 
   //TODO: validar el usuario quien creo la inserción
-  console.log(`1. video request to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
-  const data = payload.new;
+  console.log(`1. video request to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);  
   await renderVideo(data);
+}
+
+const editOrder = async (data: any) => {
+
+  //TODO: validar el usuario quien creo la inserción
+  if(data.order_state == 'edited'){
+    console.log(`1. video request edited to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);    
+    await renderVideo(data);
+  }
 }
 
 const renderVideo = async (_inputProps: any) => {
@@ -103,7 +119,7 @@ const renderVideo = async (_inputProps: any) => {
     const videoName = `${(new Date()).getTime()}`;
     const bundleLocation = await bundle({
       // entryPoint: path.resolve("./src/index.ts"),
-      entryPoint: path.resolve(getCompositionPath(_inputProps?.product_composition)),
+      entryPoint: path.resolve(getCompositionPath(_inputProps?.model_composition)),
       webpackOverride: (config) => config,
     });
 
@@ -142,6 +158,7 @@ const updateProduction = async (_id: string, _images: string, _url: string) => {
       order_state: 'produced',
       images: _images,
       video_rendered_url: _url,
+      video_rendered_url_with_watermark: _url,
     })
     .eq('id', _id)
 
@@ -153,11 +170,11 @@ const updateProduction = async (_id: string, _images: string, _url: string) => {
   //     images: _images,
   //     video_rendered_url: _url,
   //   })
-  
+
   console.log(`4. video order update! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
   // console.log(data)
 
-  if (error) console.log(error)  
+  if (error) console.log(error)
 };
 
 app.listen(process.env.PORT);
@@ -165,12 +182,12 @@ app.use(video_publico);
 
 console.log(
   [
-    `Server running on port  ${process.env.PORT}!`,
+    `Server running on port ${process.env.PORT}!`,
     '',
   ].join('\n')
 );
 
 supabaseAdmin
   .channel('todos')
-  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, newOrder)
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, handleChanges)
   .subscribe()

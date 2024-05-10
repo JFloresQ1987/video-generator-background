@@ -10,6 +10,7 @@ import { Clip } from '../../../components/Clip';
 // import Message1 from './Message1';
 import MessageFirst from './MessageFirst';
 import clip from '../../../assets/happy-birthay/bob-esponja/video/clip.mp4';
+import Watermark from '../../../components/Watermark';
 
 const waitForFont = delayRender();
 const font = new FontFace(  
@@ -38,9 +39,12 @@ const Production: React.FC<{
 
   return (
     <AbsoluteFill>
-      <Clip source={clip} />
+      <Clip source={clip} />      
       <Sequence from={0} durationInFrames={141}>
         <MessageFirst message={first_message} />
+      </Sequence>
+      <Sequence from={0} durationInFrames={870}>
+        <Watermark/>
       </Sequence>
       {/* <Sequence from={135} durationInFrames={105}>
         <Message1 m_title={m_title} m_text_1={"Vamos a vivir una"} m_text_2={"fiesta increíble!"} />
