@@ -20,4 +20,5 @@ export const config = {
   thrid_message: "asd",  
 
   component: "happy-birthay/jungle/Production",
+  with_watermark: true,
 };

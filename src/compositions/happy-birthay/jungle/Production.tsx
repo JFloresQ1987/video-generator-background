@@ -26,18 +26,21 @@ font
   .catch((err) => console.log("Error loading font", err));
 
 const Production: React.FC<{
+  with_watermark: boolean,
   first_message: string;
-}> = ({ first_message }) => {
+}> = ({ with_watermark, first_message }) => {
 
   return (
     <AbsoluteFill>
-      <Clip source={clip} />            
+      <Clip source={clip} />
       <Sequence from={0} durationInFrames={155}>
         <MessageFirst message={first_message} />
       </Sequence>
-      <Sequence from={0} durationInFrames={990}>
-        <Watermark/>
-      </Sequence>
+      if({with_watermark}){
+        <Sequence from={0} durationInFrames={990}>
+          <Watermark />
+        </Sequence>
+      }
     </AbsoluteFill>
   );
 };

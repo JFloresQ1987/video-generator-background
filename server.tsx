@@ -12,25 +12,6 @@ dotenv.config();
 const app = express();
 const video_publico = express.static(__dirname + '/public');
 
-// const newOrder2 = async () => {
-
-//   // console.log('entro a auth anonimo')
-//   // const { data, error } = await supabaseAdmin.auth.signInAnonymously();
-
-//   // if(data) console.log(data)
-//   // if(error) console.log(error)
-
-//   const { data, error } = await supabaseAdmin
-//     .from('orders')
-//     .update({
-//       order_state: 'producedXXX'
-//     })
-//     .eq('id', 1)
-
-//   if (data) console.log(data)
-//   if (error) console.log(error)
-// }
-
 const handleChanges = async (payload: any) => {
 
   const data = payload.new;
@@ -44,27 +25,26 @@ const handleChanges = async (payload: any) => {
 const newOrder = async (data: any) => {
 
   //TODO: validar el usuario quien creo la inserción
-  console.log(`1. video request to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);  
-  await renderVideo(data);
+  console.log(`1. video request to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+  await renderVideo(data, true);
 }
 
 const editOrder = async (data: any) => {
 
   //TODO: validar el usuario quien creo la inserción
-  if(data.order_state == 'edited'){
-    console.log(`1. video request edited to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);    
-    await renderVideo(data);
+  if (data.order_state == 'edited') {
+    console.log(`1. video request edited to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+    await renderVideo(data, false);
   }
 }
 
-const renderVideo = async (_inputProps: any) => {
-
-  // return;
+const renderVideo = async (_inputProps: any, _isNew: boolean) => {
 
   try {
 
     const messages = _inputProps?.messages;
     const images = _inputProps?.images;
+    //TODO: ajustar tiempo de expiración expiresIn
     const expiresIn = 3000;
 
     if (images) {
@@ -116,63 +96,125 @@ const renderVideo = async (_inputProps: any) => {
       }
     }
 
-    const videoName = `${(new Date()).getTime()}`;
+    // const videoName = `${(new Date()).getTime()}`;
     const bundleLocation = await bundle({
       // entryPoint: path.resolve("./src/index.ts"),
       entryPoint: path.resolve(getCompositionPath(_inputProps?.model_composition)),
       webpackOverride: (config) => config,
     });
 
-    const inputProps = Object.assign(messages, images);
-    const composition = await selectComposition({
-      serveUrl: bundleLocation,
-      id: "Production",
-      inputProps,
-    });
+    // const with_watermark = true;
+    // const inputProps = Object.assign(with_watermark, messages, images);
+    // const composition = await selectComposition({
+    //   serveUrl: bundleLocation,
+    //   id: "Production",
+    //   inputProps,
+    // });
 
-    console.log(`2. rendering video! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
-    await renderMedia({
-      composition,
-      serveUrl: bundleLocation,
-      codec: "h264",
-      outputLocation: `public/videos/${videoName}.mp4`,
-      // inputProps,
-    });
+    if (_isNew) {
+      const numberRandom = Math.floor(Math.random() * 100000);
+      const videoName = `${(new Date()).getTime()}${numberRandom}`;
 
-    console.log(`3. video rendered! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+      console.log(`2. rendering video with watermark! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+      await customRenderMedia(bundleLocation, messages, images, videoName, true);
+
+      console.log(`3. video rendered with watermark! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+      //TODO: cambiar localhost
+      // const _url = `http:/localhost:${process.env.PORT}/videos/${videoName}.mp4`;
+      await updateOrderWithWatermark(_inputProps.id, images, videoName);
+    }
+
+    const numberRandom = Math.floor(Math.random() * 100000);
+    const videoName = `${(new Date()).getTime()}${numberRandom}`;
+
+    console.log(`5. rendering video! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+    await customRenderMedia(bundleLocation, messages, images, videoName, false);
+
+    console.log(`6. video rendered! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
     //TODO: cambiar localhost
-    const _url = `http:/localhost:${process.env.PORT}/videos/${videoName}.mp4`;
-    updateProduction(_inputProps.id, images, _url);
+    // const _url = `http:/localhost:${process.env.PORT}/videos/${videoName}.mp4`;
+    await updateOrder(_inputProps.id, images, videoName);
+
+    // await renderMedia({
+    //   composition,
+    //   serveUrl: bundleLocation,
+    //   codec: "h264",
+    //   outputLocation: `public/videos/${videoName}.mp4`,
+    //   // inputProps,
+    // });
+
+    // console.log(`3. video rendered! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+    // //TODO: cambiar localhost
+    // const _url = `http:/localhost:${process.env.PORT}/videos/${videoName}.mp4`;
+    // updateProduction(_inputProps.id, images, _url);
 
   } catch (err) {
     console.error(err);
   }
 };
 
-const updateProduction = async (_id: string, _images: string, _url: string) => {
+const customRenderMedia = async (bundleLocation: any, messages: any, images: any, videoName: string, with_watermark: boolean) => {
+
+  // console.log('entro a renderizar')
+  // console.log(videoName)  
+
+  const prop_with_watermark = {
+    with_watermark: with_watermark
+  }
+  const inputProps = Object.assign(prop_with_watermark, messages, images);
+
+  // console.log(inputProps)
+
+  const composition = await selectComposition({
+    serveUrl: bundleLocation,
+    id: "Production",
+    inputProps,
+  });
+
+  // console.log(`2. rendering video with watermark! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+  await renderMedia({
+    composition,
+    serveUrl: bundleLocation,
+    codec: "h264",
+    outputLocation: `public/videos/${videoName}.mp4`,
+    // inputProps,
+  });
+};
+
+const updateOrderWithWatermark = async (_id: string, _images: string, _videoName: string) => {
 
   //status: 204
+  const url = `http:/localhost:${process.env.PORT}/videos/${_videoName}.mp4`;
   const { error } = await supabaseAdmin
     .from('orders')
     .update({
       order_state: 'produced',
       images: _images,
-      video_rendered_url: _url,
-      video_rendered_url_with_watermark: _url,
+      // video_rendered_url: _url,
+      video_rendered_url_with_watermark: url,
     })
     .eq('id', _id)
 
-  // const { data, error } = await supabaseAdmin
-  //   .from('orders')
-  //   .upsert({
-  //     id: _id,
-  //     order_state: 'produced',
-  //     images: _images,
-  //     video_rendered_url: _url,
-  //   })
+  console.log(`4. video order with watermark update! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
 
-  console.log(`4. video order update! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
-  // console.log(data)
+  if (error) console.log(error)
+};
+
+const updateOrder = async (_id: string, _images: string, _videoName: string) => {
+
+  //status: 204
+  const url = `http:/localhost:${process.env.PORT}/videos/${_videoName}.mp4`;
+  const { error } = await supabaseAdmin
+    .from('orders')
+    .update({
+      // order_state: 'produced',
+      // images: _images,
+      video_rendered_url: url,
+      // video_rendered_url_with_watermark: _url,
+    })
+    .eq('id', _id)
+
+  console.log(`7. video order update! [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
 
   if (error) console.log(error)
 };

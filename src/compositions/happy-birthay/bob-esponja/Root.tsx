@@ -15,6 +15,7 @@ export const RemotionRoot: React.FC = () => {
         width={720}
         height={1428}
         defaultProps={{
+          with_watermark: config.with_watermark,
           first_message: config.first_message,
         }}
       />

@@ -13,7 +13,7 @@ import clip from '../../../assets/happy-birthay/bob-esponja/video/clip.mp4';
 import Watermark from '../../../components/Watermark';
 
 const waitForFont = delayRender();
-const font = new FontFace(  
+const font = new FontFace(
   'BobEsponja',
   `url('${staticFile("/fonts/bob-esponja.ttf")}') format('truetype')`,
 );
@@ -33,19 +33,24 @@ const Production: React.FC<{
   // album: string;
   // movie: string;
   // m_title: string;
+  with_watermark: boolean,
   first_message: string;
   // m_text_2: string;
-}> = ({ /*secondaryColor, album, */ first_message /*, m_text_1, m_text_2*/ }) => {
+}> = ({ with_watermark, first_message /*, m_text_1, m_text_2*/ }) => {
 
   return (
     <AbsoluteFill>
-      <Clip source={clip} />      
+      <Clip source={clip} />
       <Sequence from={0} durationInFrames={141}>
         <MessageFirst message={first_message} />
       </Sequence>
-      <Sequence from={0} durationInFrames={870}>
-        <Watermark/>
-      </Sequence>
+
+      {with_watermark ?
+        <Sequence from={0} durationInFrames={870}>
+          <Watermark />
+        </Sequence> : <></>
+      }
+
       {/* <Sequence from={135} durationInFrames={105}>
         <Message1 m_title={m_title} m_text_1={"Vamos a vivir una"} m_text_2={"fiesta increíble!"} />
       </Sequence>

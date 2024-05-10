@@ -30,6 +30,7 @@ export const RemotionRoot: React.FC = () => {
         // height={1428}
         height={1280}
         defaultProps={{
+          with_watermark: config.with_watermark,
           // primaryColor: config.primaryColor,
           // secondaryColor: config.secondaryColor,
           // audio,
@@ -40,6 +41,7 @@ export const RemotionRoot: React.FC = () => {
           first_message: config.first_message,
           // m_text_1: config.m_text_1,
           // m_text_2: config.m_text_2,
+          
         }}
       />
     </>
