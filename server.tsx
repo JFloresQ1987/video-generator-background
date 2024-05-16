@@ -204,11 +204,21 @@ const updateOrder = async (_id: string, _images: string, _videoName: string) => 
 
   //status: 204
   const url = `http:/localhost:${process.env.PORT}/videos/${_videoName}.mp4`;
+
+  const { data/*, error*/ } = await supabaseAdmin
+    .from('orders')
+    .select('*')
+    .eq('id', _id)
+    .single()
+
+  const new_payment_attempt_number = (data.payment_attempt_number || 0) - 1;
+
   const { error } = await supabaseAdmin
     .from('orders')
     .update({
-      // order_state: 'produced',
+      order_state: 'produced',
       // images: _images,
+      payment_attempt_number: new_payment_attempt_number,
       video_rendered_url: url,
       // video_rendered_url_with_watermark: _url,
     })
