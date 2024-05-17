@@ -31,7 +31,7 @@ const Watermark: React.FC<{}> = () => {
         src={staticFile("/images/watermark.png")}
         alt="watermark"
         style={{
-          width: '700px',
+          width: '350px',
           // width: width / 3.5,
           // borderRadius: `${width / 2}%`,
           // border: `50px solid ${backgroundColor}`,
