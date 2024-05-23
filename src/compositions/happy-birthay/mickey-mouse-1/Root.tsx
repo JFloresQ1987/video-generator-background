@@ -1,8 +1,6 @@
 import { Composition } from 'remotion';
-// import { config } from './config/happy-birthay/bob-esponja-1';
-// import { config } from './config/happy-birthay/jungle-1';
-// import { config } from './config/happy-birthay/avengers-1';
-import { config } from './config/happy-birthay/mickey-mouse-1';
+import Production from './Production';
+import { config } from '../../../config/happy-birthay/mickey-mouse-1';
 
 export const RemotionRoot: React.FC = () => {
 
@@ -10,8 +8,7 @@ export const RemotionRoot: React.FC = () => {
     <>
       <Composition
         id="Production"
-        // component={Production}
-        lazyComponent={() => import(`./compositions/${config.component}`)}
+        component={Production}
         durationInFrames={config.durationInFrames}
         fps={config.fps}
         width={config.width}
@@ -23,7 +20,7 @@ export const RemotionRoot: React.FC = () => {
           third_message: config.third_message,
           fourth_message: config.fourth_message,
           fifth_message: config.fifth_message,
-          sixth_message: config.sixth_message,          
+          sixth_message: config.sixth_message,
         }}
       />
     </>

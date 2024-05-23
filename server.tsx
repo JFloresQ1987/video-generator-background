@@ -36,6 +36,10 @@ const editOrder = async (data: any) => {
     console.log(`1. video request edited to render! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
     await renderVideo(data, false);
   }
+  if (data.order_state == 'produced' && data.payment_state == 'paid') {
+    console.log(`0. Email with video send! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
+    await resendOrder(data);
+  }
 }
 
 const renderVideo = async (_inputProps: any, _isNew: boolean) => {
@@ -189,6 +193,7 @@ const updateOrderWithWatermark = async (_id: string, _images: string, _videoName
     .from('orders')
     .update({
       order_state: 'produced',
+      payment_state: 'none',
       images: _images,
       // video_rendered_url: _url,
       video_rendered_url_with_watermark: url,
@@ -228,6 +233,47 @@ const updateOrder = async (_id: string, _images: string, _videoName: string) => 
 
   if (error) console.log(error)
 };
+
+const resendOrder = async (data: any) => {
+
+  try {
+
+    // const options = {
+    //   id: data.id,
+    //   user_email: data.user_email,
+    //   video_rendered_url: data.video_rendered_url,
+    // };
+
+    const id = data.id;
+    const user_email = data.user_email;
+    //TODO: falta colocar link correcto del video
+    // const video_rendered_url = data.video_rendered_url;
+    const video_rendered_url = 'https://blijhwisxhocmojszgoy.supabase.co/storage/v1/object/sign/videos/video.mp4?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ2aWRlb3MvdmlkZW8ubXA0IiwiaWF0IjoxNzE2Mzk3MDc5LCJleHAiOjE3MTcwMDE4Nzl9.tWzQ09D4e7D9GvxC0GpS6LyF2Wso0iEd4V7LFwy8suI&t=2024-05-22T16%3A57%3A57.900Z';
+
+    console.log('entro a enviar video')
+
+    const response = await fetch(`http://localhost:4242/api/sent-email?id=${id}&user_email=${user_email}&video_rendered_url=${video_rendered_url}`)
+
+    // // const category_id = req.query.category_id;
+    // const category_id = req.params.category_id;    
+
+    // const formData = new FormData()
+    // formData.append("id", data.id)
+    // formData.append("user_email", data.user_email)
+    // formData.append("video_rendered_url", data.video_rendered_url)
+
+    // // const response = await fetch("https://example.com/api/v1/users", {
+    //   const response = await fetch("http://localhost:4242/api/sent-email", {
+    //   method: "POST",
+    //   body: formData,
+    // })
+
+    // console.log(response);
+
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 app.listen(process.env.PORT);
 app.use(video_publico);
