@@ -11,6 +11,7 @@ import clip from '../../../assets/happy-birthay/mickey-mouse-1/video/clip.mp4';
 import Watermark from '../../../components/Watermark';
 import SceneFirst from './SceneFirst';
 import SceneSecond from './SceneSecond';
+import { Animated, Fade, Move, Scale } from 'remotion-animated';
 // import SceneFirst from './SceneFirst';
 // import SceneSecond from './SceneSecond';
 // import SceneThird from './SceneThird';
@@ -22,8 +23,8 @@ import SceneSecond from './SceneSecond';
 
 const waitForFont = delayRender();
 const font = new FontFace(
-  'Jungle',
-  `url('${staticFile("/fonts/jungle.ttf")}') format('truetype')`,
+  'MickeyMouse',
+  `url('${staticFile("/fonts/mickey-mouse.ttf")}') format('truetype')`,
 );
 
 font
@@ -54,12 +55,27 @@ const Production: React.FC<{
     return (
       <AbsoluteFill>
         <Clip source={clip} />
-        <Sequence from={0} durationInFrames={300}>
+        <Sequence from={5} durationInFrames={295}>
           <SceneFirst message={first_message} />
         </Sequence>
-        <Sequence from={0} durationInFrames={300}>
+        <Sequence from={20} durationInFrames={280}>
           <SceneSecond message={second_message} />
         </Sequence>
+
+        {/* <Sequence from={20} durationInFrames={280}>
+          <Animated
+            animations={[
+              Scale({ by: 1, initial: 10 }),
+              Move({ y: -40, start: 50 }),
+              Move({ y: 40, start: 100 }),
+              Fade({ to: 0, start: 150 }),
+              Scale({ by: 0, start: 150, mass: 75 }),
+            ]}
+          >
+            <SceneSecond message={second_message} />            
+          </Animated>
+        </Sequence> */}
+
         {/* <<Sequence from={188} durationInFrames={86}>
           <SceneThird message={third_message} />
         </Sequence>

@@ -14,12 +14,14 @@ const video_publico = express.static(__dirname + '/public');
 
 const handleChanges = async (payload: any) => {
 
-  const data = payload.new;
+  const data = payload.new; 
 
-  if (payload.eventType == 'INSERT')
-    newOrder(data);
-  else if (payload.eventType == 'UPDATE')
-    editOrder(data);
+  if (data.is_current && !data.is_deleted) {
+    if (payload.eventType == 'INSERT')
+      newOrder(data);
+    else if (payload.eventType == 'UPDATE')
+      editOrder(data);
+  }
 }
 
 const newOrder = async (data: any) => {
@@ -208,6 +210,7 @@ const updateOrderWithWatermark = async (_id: string, _images: string, _videoName
 const updateOrder = async (_id: string, _images: string, _videoName: string) => {
 
   //status: 204
+  //TODO: url en duro, falta cambiar
   const url = `http:/localhost:${process.env.PORT}/videos/${_videoName}.mp4`;
 
   const { data/*, error*/ } = await supabaseAdmin
@@ -222,7 +225,7 @@ const updateOrder = async (_id: string, _images: string, _videoName: string) => 
     .from('orders')
     .update({
       order_state: 'produced',
-      // images: _images,
+      images: _images,
       payment_attempt_number: new_payment_attempt_number,
       video_rendered_url: url,
       // video_rendered_url_with_watermark: _url,
@@ -268,7 +271,7 @@ const resendOrder = async (data: any) => {
     //   body: formData,
     // })
 
-    // console.log(response);
+    console.log(response);
 
   } catch (err) {
     console.error(err);

@@ -57,7 +57,7 @@ const SceneFirst: React.FC<{ message: string }> = ({ message }) => {
 
   const text: React.CSSProperties = {
     fontWeight: 'bold',
-    fontFamily: "Jungle",
+    fontFamily: "MickeyMouse",
     fontSize: 60,
     color: '#FF0001',
     textShadow: '5px 0 white, -5px 0 white, 0 5px white, 0 -5px white, 5px 5px white, -5px -5px white, 5px -5px white, -5px 5px white',
