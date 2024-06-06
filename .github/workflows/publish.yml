@@ -1,0 +1,61 @@
+name: Publish
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+# on: [push]
+# on:
+#   push:
+#     branches:
+#       - main
+
+jobs:
+  create-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_TEST_CD }}
+      
+      - name: Build image
+        run: |
+          docker build . --tag ghcr.io/jfloresq1987/video-generator-background:latest
+          docker push ghcr.io/jfloresq1987/video-generator-background:latest
+
+  # deploy:
+  #   needs: create-docker-image
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     PORT: 8000      
+  #     SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  #     SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+  #     SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}      
+  #   steps:
+  #     - name: Install sshpass
+  #       run: sudo apt-get install sshpass
+
+  #     - name: SSH into Server
+  #       run: |
+  #         sshpass -p '${{ secrets.AUTH_PASS }}' ssh -o StrictHostKeyChecking=no ${{ secrets.AUTH_SERVER }} << EOF
+  #           cd /var/www/video-generator-background/
+  #           docker login ghcr.io -u jfloresq1987 -p ${{ secrets.TOKEN_TEST_CD }}
+  #           docker pull ghcr.io/jfloresq1987/video-generator-background:latest
+  #           docker stop video-generator-background && docker rm video-generator-background
+  #           docker run -d \
+  #           -e PORT=$PORT \
+  #           -e SUPABASE_URL=$SUPABASE_URL \
+  #           -e SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY \
+  #           -e SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY \
+  #           --name video-generator-background \
+  #           -p 8000:8000 \
+  #           ghcr.io/jfloresq1987/video-generator-background:latest
+  #         EOF

@@ -61,21 +61,21 @@ const SceneSecond: React.FC<{ message: string }> = ({ message }) => {
     // backgroundColor: 'yellow',
     // borderRadius: 25,
     // right: 90,
-    top: 300,
+    top: 450,
     margin: '0 auto',
-    scale: String(scale),
-    translate: `0 ${outY}px`,
-    rotate: `${rotate}rad`,
+    // scale: String(scale),
+    // translate: `0 ${outY}px`,
+    // rotate: `${rotate}rad`,
     // display: 'flex',
     // justifyContent: 'center',
     // alignItems: 'center',
-    padding: 40,
+    padding: 20,
   };
 
   const text: React.CSSProperties = {
     fontWeight: 'bold',
     fontFamily: "MickeyMouse",
-    fontSize: 60,
+    fontSize: 50,
     color: '#FF0001',
     textShadow: '5px 0 white, -5px 0 white, 0 5px white, 0 -5px white, 5px 5px white, -5px -5px white, 5px -5px white, -5px 5px white',
     // backgroundColor: 'red',
@@ -87,12 +87,15 @@ const SceneSecond: React.FC<{ message: string }> = ({ message }) => {
 
 
     <Animated
+    // animations={[
+    //   Scale(scale)
+    // ]}
       animations={[
-        Scale({ by: 1.5, initial: 10, mass: 2, stiffness: 300, duration: 40 }),
-        // Move({ y: -40, start: 50 }),
-        // Move({ y: 40, start: 100 }),
-        // Fade({ to: 0, start: 150 }),
-        // Scale({ by: 0, start: 150, mass: 75 }),
+        Scale({ by: 1, initial: 10000, mass: 1/*, stiffness: 300, duration: 600*/ }),
+        //   // Move({ y: -40, start: 50 }),
+        //   // Move({ y: 40, start: 100 }),
+        //   // Fade({ to: 0, start: 150 }),
+        //   // Scale({ by: 0, start: 150, mass: 75 }),
       ]}
     // animations={[Size({ width: 300 })]}
     // animations={[
@@ -100,7 +103,7 @@ const SceneSecond: React.FC<{ message: string }> = ({ message }) => {
     //   Fade({ to: 0, start: 60 }),
     // ]}
     // animations={[Rotate({ degrees: 360 })]}
-    // animations={[Scale({ by: 1.5 })]}
+    // animations={[Scale({ by: 1 })]}
     // animations={[
     //   Move({ x: 20, y: 80 }),
     //   Move({ x: 20, y: -80, start: 20 }),

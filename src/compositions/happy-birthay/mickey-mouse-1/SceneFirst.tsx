@@ -17,7 +17,7 @@ const SceneFirst: React.FC<{ message: string }> = ({ message }) => {
     fps,
     frame,
     config: {
-      mass: 0.5,
+      mass: 1.5,
     },
   });
 
