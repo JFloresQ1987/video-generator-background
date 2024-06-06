@@ -163,13 +163,15 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
 
   // console.log('entro a renderizar')
   // console.log(videoName)  
-
+  console.log('llego 1')
   const prop_with_watermark = {
     with_watermark: with_watermark
   }
   const inputProps = Object.assign(prop_with_watermark, messages, images);
 
   // console.log(inputProps)
+  console.log('llego 2')
+  console.log(inputProps)
 
   const composition = await selectComposition({
     serveUrl: bundleLocation,
@@ -177,8 +179,8 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
     inputProps,
   });
 
-  console.log('llegoooooooooo')
-  console.log(inputProps)
+  console.log('llegoooooooooo 3')
+  // console.log(inputProps)
   // console.log(`2. rendering video with watermark! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
   await renderMedia({
     composition,
