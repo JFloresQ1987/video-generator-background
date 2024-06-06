@@ -14,7 +14,7 @@ const video_publico = express.static(__dirname + '/public');
 
 const handleChanges = async (payload: any) => {
 
-  const data = payload.new; 
+  const data = payload.new;
 
   if (data.is_current && !data.is_deleted) {
     if (payload.eventType == 'INSERT')
@@ -184,13 +184,20 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
   console.log('llegoooooooooo 3')
   console.log(composition)
   // console.log(`2. rendering video with watermark! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
-  await renderMedia({
-    composition,
-    serveUrl: bundleLocation,
-    codec: "h264",
-    outputLocation: `public/videos/${videoName}.mp4`,
-    // inputProps,
-  });
+
+  try {
+    await renderMedia({
+      composition,
+      serveUrl: bundleLocation,
+      codec: "h264",
+      outputLocation: `public/videos/${videoName}.mp4`,
+      // inputProps,
+    });
+
+  } catch (err) {
+    console.error(err);
+  }
+
 };
 
 const updateOrderWithWatermark = async (_id: string, _images: string, _videoName: string) => {
