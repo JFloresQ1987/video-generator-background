@@ -44,19 +44,19 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get install sshpass
 
-      # - name: Install chromium-browser        
-      # - run: sudo apt update
-      # - run: sudo apt install chromium
-      - run: sudo snap install chromium
-      # - run: sudo apt-get update
-      # - run: sudo apt-get install -y chromium
+      # # - name: Install chromium-browser        
+      # # - run: sudo apt update
+      # # - run: sudo apt install chromium
+      # - run: sudo snap install chromium
+      # # - run: sudo apt-get update
+      # # - run: sudo apt-get install -y chromium
       
-      # - name: Install ffmpeg        
-      - run: sudo apt update
-      - run: sudo apt install ffmpeg
-        # run: sudo apt-get update && apt-get install ffmpeg
-        # run: sudo apt update
-        # run: sudo apt install ffmpeg
+      # # - name: Install ffmpeg        
+      # - run: sudo apt update
+      # - run: sudo apt install ffmpeg
+      #   # run: sudo apt-get update && apt-get install ffmpeg
+      #   # run: sudo apt update
+      #   # run: sudo apt install ffmpeg
 
       - name: SSH into Server
         run: |
