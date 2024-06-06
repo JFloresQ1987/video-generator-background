@@ -44,7 +44,7 @@ jobs:
         run: sudo apt-get install sshpass
 
       - name: Install ffmpeg
-        run: apt-get update && apt-get install ffmpeg
+        run: sudo apt-get update && apt-get install ffmpeg
         # run: sudo apt update & 
         # run: sudo apt install ffmpeg
 
