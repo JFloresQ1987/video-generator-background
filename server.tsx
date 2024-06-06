@@ -177,6 +177,8 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
     inputProps,
   });
 
+  console.log('llegoooooooooo')
+  console.log(inputProps)
   // console.log(`2. rendering video with watermark! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
   await renderMedia({
     composition,
