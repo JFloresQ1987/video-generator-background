@@ -51,12 +51,12 @@ jobs:
       # # - run: sudo apt-get update
       # # - run: sudo apt-get install -y chromium
       
-      # # - name: Install ffmpeg        
-      # - run: sudo apt update
-      # - run: sudo apt install ffmpeg
-      #   # run: sudo apt-get update && apt-get install ffmpeg
-      #   # run: sudo apt update
-      #   # run: sudo apt install ffmpeg
+      # - name: Install ffmpeg        
+      - run: sudo apt update
+      - run: sudo apt install ffmpeg
+        # run: sudo apt-get update && apt-get install ffmpeg
+        # run: sudo apt update
+        # run: sudo apt install ffmpeg
 
       - name: SSH into Server
         run: |
