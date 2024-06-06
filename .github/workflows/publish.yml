@@ -45,14 +45,14 @@ jobs:
         run: sudo apt-get install sshpass
 
       # - name: Install chromium-browser        
-      # - run: sudo apt update
-      # - run: sudo apt install -y chromium
-      - run: sudo apt-get update
-      - run: sudo apt-get install -y chromium
+      - run: sudo apt update
+      - run: sudo apt install chromium
+      # - run: sudo apt-get update
+      # - run: sudo apt-get install -y chromium
       
       # - name: Install ffmpeg        
       - run: sudo apt update
-      - run: sudo apt install -y ffmpeg
+      - run: sudo apt install ffmpeg
         # run: sudo apt-get update && apt-get install ffmpeg
         # run: sudo apt update
         # run: sudo apt install ffmpeg
