@@ -6,3 +6,4 @@ Config.setAudioBitrate("128K");
 Config.setImageSequence(false);
 Config.setVideoImageFormat('jpeg');
 Config.setOverwriteOutput(true);
+Config.setBrowserExecutable("/usr/bin/google-chrome-stable");
