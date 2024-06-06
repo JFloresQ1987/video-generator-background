@@ -44,6 +44,10 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get install sshpass
 
+      # - name: Install chromium-browser        
+      - run: sudo apt update
+      - run: sudo apt install chromium-browser
+      
       # - name: Install ffmpeg        
       - run: sudo apt update
       - run: sudo apt install ffmpeg

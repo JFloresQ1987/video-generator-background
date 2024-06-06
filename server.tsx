@@ -164,6 +164,8 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
   // console.log('entro a renderizar')
   // console.log(videoName)  
   console.log('llego 1')
+  console.log(bundleLocation)
+
   const prop_with_watermark = {
     with_watermark: with_watermark
   }
@@ -171,7 +173,7 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
 
   // console.log(inputProps)
   console.log('llego 2')
-  console.log(inputProps)
+  // console.log(inputProps)
 
   const composition = await selectComposition({
     serveUrl: bundleLocation,
