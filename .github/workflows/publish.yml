@@ -47,7 +47,7 @@ jobs:
       # # - name: Install chromium-browser        
       # # - run: sudo apt update
       # # - run: sudo apt install chromium
-      # - run: sudo snap install chromium
+      - run: sudo snap install chromium
       # # - run: sudo apt-get update
       # # - run: sudo apt-get install -y chromium
       
