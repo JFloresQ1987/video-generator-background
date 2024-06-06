@@ -1,7 +1,7 @@
 FROM node:20.13-alpine
 WORKDIR /app
 # COPY . .
-COPY /app/package.json .
+COPY /package.json .
 
 RUN apt-get update && apt-get install -y \
     libcairo2-dev \
