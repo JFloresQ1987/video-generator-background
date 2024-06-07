@@ -1,8 +1,8 @@
 import { Composition } from 'remotion';
 // import { config } from './config/happy-birthay/bob-esponja-1';
-// import { config } from './config/happy-birthay/jungle-1';
+import { config } from './config/happy-birthay/jungle-1';
 // import { config } from './config/happy-birthay/avengers-1';
-import { config } from './config/happy-birthay/mickey-mouse-1';
+// import { config } from './config/happy-birthay/mickey-mouse-1';
 
 export const RemotionRoot: React.FC = () => {
 

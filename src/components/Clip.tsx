@@ -35,10 +35,11 @@ export const Clip: React.FC<{ source: any }> = ({ source }) => {
         display: 'flex',
       }}
     >
-      <OffthreadVideo
+      {/* <OffthreadVideo
         src={source}
       // style={{width: '90%', opacity, transform: `scale(${scale})`}}
-      />
+      /> */}
+      <OffthreadVideo src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
     </div>
   );
 };
