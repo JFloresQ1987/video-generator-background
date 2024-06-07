@@ -191,7 +191,7 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
       serveUrl: bundleLocation,
       codec: "h264",
       outputLocation: `public/videos/${videoName}.mp4`,
-      // inputProps,
+      inputProps,
     });
 
   } catch (err) {
