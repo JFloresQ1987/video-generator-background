@@ -40,18 +40,20 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
   PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
   # PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
-COPY package*.json ./
-COPY tsconfig.json ./
-COPY src src
-COPY *.ts .
-COPY *.tsx .
-COPY public ./public
+# COPY package*.json ./
+# COPY tsconfig.json ./
+# COPY src src
+# COPY *.ts .
+# COPY *.tsx .
 
-RUN npm i
+# COPY remotion.config.* ./
+# COPY public ./public
 
-# WORKDIR /app
-# COPY . .
-# RUN npm install
+# RUN npm i
+
+WORKDIR /app
+COPY . .
+RUN npm install
 
 # # Add user so we don't need --no-sandbox.
 # RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
