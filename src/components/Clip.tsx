@@ -5,6 +5,7 @@ import {
   spring,
   useCurrentFrame,
   useVideoConfig,
+  Video,
 } from 'remotion';
 // import clip from '../assets/happy-birthay/bob-esponja-1/video/clip.mp4';
 
@@ -39,7 +40,8 @@ export const Clip: React.FC<{ source: any }> = ({ source }) => {
         src={source}
       // style={{width: '90%', opacity, transform: `scale(${scale})`}}
       /> */}
-      <OffthreadVideo src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+      <Video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+      {/* <OffthreadVideo src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" /> */}
     </div>
   );
 };
