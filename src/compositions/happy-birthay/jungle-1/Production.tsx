@@ -7,7 +7,7 @@ import {
 } from 'remotion';
 import React from 'react';
 import { Clip } from '../../../components/Clip';
-import clip from '../../../assets/happy-birthay/jungle-1/video/clip.mp4';
+// import clip from '../../../assets/happy-birthay/jungle-1/video/clip.mp4';
 import Watermark from '../../../components/Watermark';
 import SceneStart from './SceneStart';
 import SceneFirst from './SceneFirst';
@@ -18,6 +18,7 @@ import SceneFifth from './SceneFifth';
 import SceneSixth from './SceneSixth';
 import SceneSeventh from './SceneSeventh';
 
+const clip = `${staticFile("/videos/happy-birthay/jungle-1/video/clip.mp4")}`;
 const waitForFont = delayRender();
 const font = new FontFace(
   'Jungle',
@@ -64,7 +65,7 @@ const Production: React.FC<{
 
     return (
       <AbsoluteFill>
-        {/* <Clip source={clip} /> */}
+        <Clip source={clip} />
         <Sequence from={0} durationInFrames={155}>
           <SceneStart message={"TIENES UNA INVITACIÓN"} />
         </Sequence>
