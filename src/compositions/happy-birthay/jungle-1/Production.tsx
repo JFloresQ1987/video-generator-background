@@ -51,7 +51,7 @@ const Production: React.FC<{
   third_message: string;
   fourth_message: string;
   fifth_message: string;
-  sixth_message: string;  
+  sixth_message: string;
   seventh_message: string;
 }> = ({ with_watermark,
   first_message,
@@ -59,13 +59,13 @@ const Production: React.FC<{
   third_message,
   fourth_message,
   fifth_message,
-  sixth_message,  
+  sixth_message,
 }) => {
 
     return (
       <AbsoluteFill>
-        {/*<Clip source={clip} />
-         <Sequence from={0} durationInFrames={155}>
+        {/* <Clip source={clip} /> */}
+        <Sequence from={0} durationInFrames={155}>
           <SceneStart message={"TIENES UNA INVITACIÓN"} />
         </Sequence>
         <Sequence from={160} durationInFrames={163}>
@@ -93,7 +93,7 @@ const Production: React.FC<{
           <Sequence from={0} durationInFrames={870}>
             <Watermark />
           </Sequence> : <></>
-        } */}
+        }
       </AbsoluteFill>
     );
   };
