@@ -7,4 +7,4 @@ Config.setImageSequence(false);
 Config.setVideoImageFormat('jpeg');
 Config.setOverwriteOutput(true);
 // Config.setBrowserExecutable("/usr/bin/google-chrome-stable");
-Config.setBrowserExecutable("/usr/bin/chromium-browser");
+// Config.setBrowserExecutable("/usr/bin/chromium-browser");
