@@ -173,7 +173,7 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
 
   // console.log(inputProps)
   console.log('llego 2')
-  // console.log(inputProps)
+  console.log(bundleLocation)
 
   const composition = await selectComposition({
     serveUrl: bundleLocation,
@@ -193,6 +193,7 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
       outputLocation: `public/videos/${videoName}.mp4`,
       inputProps,
       browserExecutable:"/usr/bin/chromium-browser",
+      // qwe:""
     });
 
   } catch (err) {
