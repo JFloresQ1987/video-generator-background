@@ -52,6 +52,7 @@ const Production: React.FC<{
   fourth_message: string;
   fifth_message: string;
   sixth_message: string;  
+  seventh_message: string;
 }> = ({ with_watermark,
   first_message,
   second_message,
