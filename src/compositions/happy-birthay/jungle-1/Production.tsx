@@ -64,8 +64,8 @@ const Production: React.FC<{
 
     return (
       <AbsoluteFill>
-        <Clip source={clip} />
-        {/* <Sequence from={0} durationInFrames={155}>
+        {/*<Clip source={clip} />
+         <Sequence from={0} durationInFrames={155}>
           <SceneStart message={"TIENES UNA INVITACIÓN"} />
         </Sequence>
         <Sequence from={160} durationInFrames={163}>
