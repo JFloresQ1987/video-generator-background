@@ -194,7 +194,22 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
       // inputProps,
       browserExecutable:"/usr/bin/chromium-browser",
       // qwe:""
+      // codec: "",
+      videoBitrate: "738K",
+      audioBitrate: "128K",
+      // imageSequence: false,
+      imageFormat: "jpeg",
+      overwrite: true,
     });
+
+    /*
+    Config.setCodec('h264');
+Config.setVideoBitrate("738K");
+Config.setAudioBitrate("128K");
+Config.setImageSequence(false);
+Config.setVideoImageFormat('jpeg');
+Config.setOverwriteOutput(true);
+    */
 
   } catch (err) {
     console.error(err);
