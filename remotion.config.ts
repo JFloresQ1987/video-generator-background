@@ -1,6 +1,7 @@
 import {Config} from '@remotion/cli/config';
 
-Config.setCodec('h264');
+// Config.setCodec('h264');
+Config.setCodec('prores');
 Config.setVideoBitrate("738K");
 Config.setAudioBitrate("128K");
 Config.setImageSequence(false);
