@@ -42,8 +42,8 @@ export const Clip: React.FC<{ source: any }> = ({ source }) => {
         src={source}
       // style={{width: '90%', opacity, transform: `scale(${scale})`}}
       /> */}
-      {/* <Video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" /> */}
-      <Audio src={staticFile("audio.mp3")} />
+      <Video src={staticFile("/videos/flipbook.mov")} />
+      {/* <Audio src={staticFile("audio.mp3")} /> */}
       {/* <Video src={staticFile("/videos/happy-birthay/jungle-1/video/clip.mp4")} /> */}
       {/* <OffthreadVideo src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" /> */}
     </div>
