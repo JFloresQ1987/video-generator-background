@@ -63,7 +63,7 @@ RUN npm install
 # # Run everything after as non-privileged user.
 # USER pptruser
 
-EXPOSE 3000
+EXPOSE 8000
 
 CMD ["npm", "run", "server"] 
 
