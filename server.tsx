@@ -189,18 +189,18 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
     await renderMedia({
       composition,
       serveUrl: bundleLocation,
-      // codec: "h264",
-      codec: "prores",
+      codec: "h264",
+      // codec: "prores",
       outputLocation: `public/videos/${videoName}.mp4`,
-      // inputProps,
-      // browserExecutable:"/usr/bin/chromium-browser",
-      // qwe:""
-      // codec: "",
-      videoBitrate: "738K",
-      audioBitrate: "128K",
-      // imageSequence: false,
-      imageFormat: "jpeg",
-      overwrite: true,
+      // // inputProps,
+      // // browserExecutable:"/usr/bin/chromium-browser",
+      // // qwe:""
+      // // codec: "",
+      // videoBitrate: "738K",
+      // audioBitrate: "128K",
+      // // imageSequence: false,
+      // imageFormat: "jpeg",
+      // overwrite: true,
     });
 
     /*
