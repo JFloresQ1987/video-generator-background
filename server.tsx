@@ -163,7 +163,7 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
 
   // console.log('entro a renderizar')
   // console.log(videoName)  
-  console.log('llego 1')
+  // console.log('llego 1')
   // console.log(bundleLocation)
 
   const prop_with_watermark = {
@@ -172,8 +172,8 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
   const inputProps = Object.assign(prop_with_watermark, messages, images);
 
   // console.log(inputProps)
-  console.log('llego 2')
-  console.log(bundleLocation)
+  // console.log('llego 2')
+  // console.log(bundleLocation)
 
   const composition = await selectComposition({
     serveUrl: bundleLocation,
@@ -181,7 +181,7 @@ const customRenderMedia = async (bundleLocation: any, messages: any, images: any
     inputProps,
   });
 
-  console.log('llegoooooooooo 3')
+  // console.log('llegoooooooooo 3')
   // console.log(composition)
   // console.log(`2. rendering video with watermark! ... [${moment().format('DD/MM/YYYY hh:mm:ss')}]`);
 
@@ -282,11 +282,12 @@ const resendOrder = async (data: any) => {
     const user_email = data.user_email;
     //TODO: falta colocar link correcto del video
     // const video_rendered_url = data.video_rendered_url;
-    const video_rendered_url = 'https://blijhwisxhocmojszgoy.supabase.co/storage/v1/object/sign/videos/video.mp4?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ2aWRlb3MvdmlkZW8ubXA0IiwiaWF0IjoxNzE2Mzk3MDc5LCJleHAiOjE3MTcwMDE4Nzl9.tWzQ09D4e7D9GvxC0GpS6LyF2Wso0iEd4V7LFwy8suI&t=2024-05-22T16%3A57%3A57.900Z';
+    const video_rendered_url = 'https://blijhwisxhocmojszgoy.supabase.co/storage/v1/object/sign/videos/video.mp4?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ2aWRlb3MvdmlkZW8ubXA0IiwiaWF0IjoxNzE4NjQxMzMzLCJleHAiOjE3MTkyNDYxMzN9.3_TwzHMSd2pQkP1YpoKQV_S-fEAbUhUx80qOxXW4_Z4&t=2024-06-17T16%3A22%3A12.922Z';
 
-    console.log('entro a enviar video')
+    // console.log('entro a enviar video')
 
-    const response = await fetch(`http://localhost:4242/api/sent-email?id=${id}&user_email=${user_email}&video_rendered_url=${video_rendered_url}`)
+    // const response = await fetch(`http://localhost:4242/api/sent-email?id=${id}&user_email=${user_email}&video_rendered_url=${video_rendered_url}`)
+    const response = await fetch(`${process.env.API_URL}/sent-email?id=${id}&user_email=${user_email}&video_rendered_url=${video_rendered_url}`)    
 
     // // const category_id = req.query.category_id;
     // const category_id = req.params.category_id;    
