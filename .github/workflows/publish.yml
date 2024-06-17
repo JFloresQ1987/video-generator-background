@@ -37,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PORT: 8000      
+      API_URL: http://happychecho.qhatuyki.shop/api
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}      
@@ -67,6 +68,7 @@ jobs:
             docker stop video-generator-background && docker rm video-generator-background
             docker run -d \
             -e PORT=$PORT \
+            -e API_URL=$API_URL \
             -e SUPABASE_URL=$SUPABASE_URL \
             -e SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY \
             -e SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY \
